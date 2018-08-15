@@ -12,12 +12,14 @@ class HashMatcher implements IteratorAggregate {
 	public function getIterator() {
 		$hash = $this->hash;
 		$nextHash = null;
+		$matchedHash = null;
 		yield $hash;
-		while($this->hash !== $nextHash) {
+		while($this->hash !== $nextHash) {  
+		 $matchedHash = $hash;
 			$nextHash = hash($this->algo, $hash);
 			$hash = $nextHash;
 			yield $nextHash;
 		}
-		return $nextHash;
+		return $matchedHash;
 	}
 }
